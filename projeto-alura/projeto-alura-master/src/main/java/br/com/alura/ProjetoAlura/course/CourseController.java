@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping("/course")
 public class CourseController {
@@ -36,11 +38,15 @@ public class CourseController {
         return ResponseEntity.status(HttpStatus.CREATED).body("Course created successfully");
     }
 
-    @PostMapping("/{code}/inactive")
-    public ResponseEntity createCourse(@PathVariable("code") String courseCode) {
-        // TODO: Implementar a Questão 2 - Inativação de Curso aqui...
+    @PatchMapping("/{code}/inactive")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void inactivateCourse(@PathVariable String code) {
+        Course course = courseRepository.findByCode(code)
+                .orElseThrow(() -> new CourseNotFoundException(code));
 
-        return ResponseEntity.ok().build();
+        course.setStatus(Course.Status.INACTIVE);
+        course.setInactiveAt(LocalDateTime.now());
+        courseRepository.save(course);
     }
 
 }
