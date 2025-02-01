@@ -31,6 +31,7 @@ public class CourseController {
                 newCourse.getName(),
                 newCourse.getCode(),
                 newCourse.getDescription(),
+                newCourse.getInstructorName(),
                 newCourse.getInstructorEmail()
         );
 

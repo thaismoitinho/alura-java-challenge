@@ -20,6 +20,10 @@ public class NewCourseDTO {
 
     @NotNull
     @NotBlank
+    private String instructorName;
+
+    @NotNull
+    @NotBlank
     @Email
     private String instructorEmail;
 
@@ -31,6 +35,14 @@ public class NewCourseDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getInstructorName() {
+        return instructorName;
+    }
+
+    public void setInstructorName(String instructorName) {
+        this.instructorName = instructorName;
     }
 
     public String getCode() {

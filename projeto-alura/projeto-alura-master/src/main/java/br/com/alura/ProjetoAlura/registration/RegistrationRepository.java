@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface RegistrationRepository extends JpaRepository<Registration, Long> {
     Optional<Registration> findByStudentIdAndCourseId(Long studentId, Long courseId);
     Optional<Registration> findByStudent_EmailAndCourse_Code(String studentEmail, String courseCode);
-
+    Long countByCourse_Code(String courseCode);
 }

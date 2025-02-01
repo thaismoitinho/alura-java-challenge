@@ -2,9 +2,11 @@ package br.com.alura.ProjetoAlura.registration;
 
 import br.com.alura.ProjetoAlura.course.Course;
 import br.com.alura.ProjetoAlura.course.CourseRepository;
+import br.com.alura.ProjetoAlura.course.NewCourseDTO;
 import br.com.alura.ProjetoAlura.user.User;
 import br.com.alura.ProjetoAlura.user.UserRepository;
 import jakarta.validation.Valid;
+import org.hibernate.mapping.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -56,36 +58,24 @@ public class RegistrationController {
         return ResponseEntity.status(HttpStatus.CREATED).body(registration);
     }
 
-    @GetMapping("/registration/report")
+    @GetMapping("/report")
     public ResponseEntity<List<RegistrationReportItem>> report() {
         List<RegistrationReportItem> items = new ArrayList<>();
 
-        // TODO: Implementar a Questão 4 - Relatório de Cursos Mais Acessados aqui...
+        List<Course> courseItems = courseRepository.findAll();
 
-        // Dados fictícios abaixo que devem ser substituídos
-        items.add(new RegistrationReportItem(
-                "Java para Iniciantes",
-                "java",
-                "Charles",
-                "charles@alura.com.br",
-                10L
-        ));
+        for (Course course : courseItems) {
 
-        items.add(new RegistrationReportItem(
-                "Spring para Iniciantes",
-                "spring",
-                "Charles",
-                "charles@alura.com.br",
-                9L
-        ));
+            Long totalRegistrations = registrationRepository.countByCourse_Code(course.getCode());
 
-        items.add(new RegistrationReportItem(
-                "Maven para Avançados",
-                "maven",
-                "Charles",
-                "charles@alura.com.br",
-                9L
-        ));
+            items.add(new RegistrationReportItem(
+                    course.getName(),
+                    course.getCode(),
+                    "Charles",
+                    course.getInstructorEmail(),
+                    totalRegistrations
+            ));
+        }
 
         return ResponseEntity.ok(items);
     }

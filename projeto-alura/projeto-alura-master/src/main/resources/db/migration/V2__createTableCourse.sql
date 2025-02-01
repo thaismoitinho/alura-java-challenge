@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS Course (
     name VARCHAR(255) NOT NULL,
     code VARCHAR(10) NOT NULL UNIQUE,
     description VARCHAR(255) NOT NULL,
+    instructor_name VARCHAR(255) NOT NULL,
     instructor_email VARCHAR(255) NOT NULL,
     status ENUM('ACTIVE', 'INACTIVE') NOT NULL DEFAULT 'ACTIVE',
     inactive_at DATETIME NULL

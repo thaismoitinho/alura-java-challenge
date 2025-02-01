@@ -18,6 +18,9 @@ public class Course {
 
     private String description; // A description of what the course is about
 
+    @Column(nullable = false, name = "instructor_name")
+    private String instructorName; // Instructor's name
+
     @Column(nullable = false, name = "instructor_email")
     private String instructorEmail; // Instructor's email
 
@@ -31,10 +34,11 @@ public class Course {
     @Deprecated
     public Course() {}
 
-    public Course(String name, String code, String description, String instructorEmail) {
+    public Course(String name, String code, String description, String instructorName, String instructorEmail) {
         this.name = name;
         this.code = code;
         this.description = description;
+        this.instructorName = instructorName;
         this.instructorEmail = instructorEmail;
         this.status = Status.ACTIVE;
     }
